@@ -111,25 +111,29 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
     }
 
     private fun handleIntent(intent: Intent, initial: Boolean) {
-    
-    if(intent.action == Intent.ACTION_VIEW){
+        if (intent.action == Intent.ACTION_VIEW) {
             val value = getMediaUris(intent)
             if (initial) initialMedia = value
             latestMedia = value
             eventSinkMedia?.success(latestMedia?.toString())
-            return 
-    }else if((intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)&&intent.getStringExtra(Intent.EXTRA_TEXT)==null){
+            return
+        } else if ((
+                intent.action == Intent.ACTION_SEND ||
+                    intent.action == Intent.ACTION_SEND_MULTIPLE
+                ) &&
+            intent.getStringExtra(Intent.EXTRA_TEXT) == null
+        ) {
             val value = getMediaUris(intent)
             if (initial) initialMedia = value
             latestMedia = value
             eventSinkMedia?.success(latestMedia?.toString())
-    }else{
+        } else {
             val value = intent.getStringExtra(Intent.EXTRA_TEXT)
             if (initial) initialText = value
             latestText = value
             eventSinkText?.success(latestText)
+        }
     }
-}
 
     private fun getMediaUris(intent: Intent?): JSONArray? {
         if (intent == null) return null
