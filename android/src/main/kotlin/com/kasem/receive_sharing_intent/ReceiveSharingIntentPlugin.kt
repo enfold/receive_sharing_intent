@@ -110,7 +110,7 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
         }
     }
 
-    rivate fun handleIntent(intent: Intent, initial: Boolean) {
+    private fun handleIntent(intent: Intent, initial: Boolean) {
     
     if(intent.action == Intent.ACTION_VIEW){
             val value = getMediaUris(intent)
